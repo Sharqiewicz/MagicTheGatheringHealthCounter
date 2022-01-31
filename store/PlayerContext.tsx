@@ -1,17 +1,18 @@
-import { createContext, useContext, useState, Dispatch, SetStateAction } from 'react'
-import { IPlayer } from '../types'
+import { createContext, useContext, useReducer, Dispatch } from 'react'
+
+import { playerReducer, IPlayerReducerState, IPlayerReducerPayload } from './PlayersReducer'
 
 interface IPlayerContext {
-  players: IPlayer[]
-  update: Dispatch<SetStateAction<IPlayer[]>>
+  state: IPlayerReducerState
+  dispatch: Dispatch<IPlayerReducerPayload>
 }
 
 const PlayerContext = createContext<IPlayerContext | undefined>(undefined)
 
 export const PlayerProvider: React.FC = ({ children }) => {
-  const [players, update] = useState<IPlayer[]>([])
+  const [state, dispatch] = useReducer(playerReducer, { players: [] })
 
-  const value = { players, update }
+  const value = { state, dispatch }
   return <PlayerContext.Provider value={value}>{children}</PlayerContext.Provider>
 }
 

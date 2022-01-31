@@ -1,26 +1,27 @@
-import { Text, Button, View } from 'react-native'
-import { useState } from 'react'
+import { View, Text } from 'react-native'
+import { IPlayer } from '../../types'
 
+import { Button } from '../Button'
+
+import { useStyles } from './Counter.styles'
 interface CounterProps {
-  defaultValue: number
+  player: IPlayer
+  increment: (player: IPlayer) => void
+  decrement: (player: IPlayer) => void
 }
 
-const Counter = ({ defaultValue }: CounterProps = { defaultValue: 20 }) => {
-  const [count, setCount] = useState(defaultValue)
-
-  const increment = () => {
-    setCount(state => state + 1)
-  }
-
-  const decrement = () => {
-    setCount(state => state - 1)
-  }
-
+const Counter = ({ player, increment, decrement }: CounterProps) => {
+  const isLow = () => player.health < 8
+  const styles = useStyles(isLow())
   return (
-    <View>
-      <Text>{count}</Text>
-      <Button title="+1" onPress={increment} />
-      <Button title="-1" onPress={decrement} />
+    <View style={styles.container}>
+      <Text ellipsizeMode="tail" numberOfLines={1} style={styles.heading}>
+        {player.name + ': ' + player.health}
+      </Text>
+      <View style={styles.buttonContainer}>
+        <Button title="+1" onPress={() => increment(player)} />
+        <Button title="-1" onPress={() => decrement(player)} />
+      </View>
     </View>
   )
 }

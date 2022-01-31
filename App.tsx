@@ -1,24 +1,13 @@
 import { PlayerProvider } from './store/PlayerContext'
-
-import { StyleSheet, View } from 'react-native'
-import { Counter } from './components/Counter'
+import { Navigation } from './navigation'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
 export default function App() {
   return (
-    <PlayerProvider>
-      <View style={styles.container}>
-        <Counter defaultValue={20} />
-        <Counter defaultValue={20} />
-      </View>
-    </PlayerProvider>
+    <SafeAreaProvider>
+      <PlayerProvider>
+        <Navigation />
+      </PlayerProvider>
+    </SafeAreaProvider>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-})
