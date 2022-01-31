@@ -1,13 +1,17 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { PlayerProvider } from './store/PlayerContext'
+
+import { StyleSheet, View } from 'react-native'
+import { Counter } from './components/Counter'
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <PlayerProvider>
+      <View style={styles.container}>
+        <Counter defaultValue={20} />
+        <Counter defaultValue={20} />
+      </View>
+    </PlayerProvider>
+  )
 }
 
 const styles = StyleSheet.create({
@@ -17,4 +21,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-});
+})
